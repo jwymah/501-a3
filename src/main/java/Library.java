@@ -8,6 +8,8 @@
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.util.IdentityHashMap;
+import java.util.Map;
 
 import org.jdom2.DocType;
 import org.jdom2.Document;
@@ -16,7 +18,8 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 public class Library {
-	private static int ids = 0;
+	private static Integer id = 0;
+	private Map<Object, Integer> serializedMap = new IdentityHashMap<Object, Integer>();
 	public Library()
 	{
 		try
@@ -29,11 +32,18 @@ public class Library {
 			e.printStackTrace();
 		}
 	}
-    public void serialize(Object obj) throws IllegalArgumentException, IllegalAccessException, IOException {
+	
+    public Integer serialize(Object obj) throws IllegalArgumentException, IllegalAccessException, IOException {
     	Field[] fields = obj.getClass().getDeclaredFields();
     	System.out.println(fields.length);
     	
-    	Element root = new Element(obj.getClass().getName());
+    	Element thisNode = null;
+    	thisNode = new Element("object")
+    			.setAttribute("class", obj.getClass().getName())
+    			.setAttribute("id", String.valueOf(id));
+    	
+    	serializedMap.put(obj, id);
+    	id++;
     	
     	// for each field add an element
     	for( Field field : fields)
@@ -44,36 +54,40 @@ public class Library {
     								.setAttribute("declaringclass", field.getDeclaringClass().getName());
     		if (field.getType().isPrimitive())
     		{
-				newFieldElement.addContent(new Element("value").setText(field.get(obj).toString()));
+				newFieldElement.addContent(new Element("value")
+											.setText(field.get(obj).toString()));
     		}
     		else // field is a reference
     		{
-    			try
-    			{
-    				newFieldElement.addContent(new Element("reference").setText(field.get(obj).toString()));
-    			}
-    			catch(NullPointerException e)
-    			{
-    				newFieldElement.addContent(new Element("reference").setText("null"));
-    			}
+				if (field.get(obj) != null && serializedMap.get(field.get(obj).getClass()) == null)
+				{
+					Integer newId = serialize(field.get(obj));
+					
+					newFieldElement.addContent(new Element("reference")
+											.setText(String.valueOf(newId)));
+				}
     		}
-    		root.addContent(newFieldElement);
+    		thisNode.addContent(newFieldElement);
     	}
-    	
     	// for each element in array get its value or reference
-    	
     	// for each non-primitive recursively get its tree
 
-    	Document doc = new Document(root);
-    	doc.setDocType(new DocType("rooty"));
-
-    	System.out.println(doc.toString());
-
-		XMLOutputter xmlOutput = new XMLOutputter();
-		xmlOutput.setFormat(Format.getPrettyFormat());
+    	
+    	if (serializedMap.get(obj) != null && serializedMap.get(obj) == 0)
+    	{
+			Document doc = new Document(thisNode);
+			doc.setDocType(new DocType("rooty"));
 		
-		OutputStream outStream = System.out;
-		xmlOutput.output(doc, outStream);
+			System.out.println(doc.toString());
+		
+			XMLOutputter xmlOutput = new XMLOutputter();
+			xmlOutput.setFormat(Format.getPrettyFormat());
+			
+			OutputStream outStream = System.out;
+			xmlOutput.output(doc, outStream);
+    	}
+    	
+		return serializedMap.get(obj);
     }
     
     public static void main(String[] args)
