@@ -4,8 +4,80 @@
  *
  * @author bighoon, @date 04/11/15 12:16 PM
  */
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.lang.reflect.Field;
+
+import org.jdom2.DocType;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
+
 public class Library {
-    public boolean someLibraryMethod() {
-        return true;
+	private static int ids = 0;
+	public Library()
+	{
+		try
+		{
+			serialize(new ClassB());
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+    public void serialize(Object obj) throws IllegalArgumentException, IllegalAccessException, IOException {
+    	Field[] fields = obj.getClass().getDeclaredFields();
+    	System.out.println(fields.length);
+    	
+    	Element root = new Element(obj.getClass().getName());
+    	
+    	// for each field add an element
+    	for( Field field : fields)
+    	{
+    		field.setAccessible(true);
+    		Element newFieldElement = new Element("field")
+    								.setAttribute("name", field.getName())
+    								.setAttribute("declaringclass", field.getDeclaringClass().getName());
+    		if (field.getType().isPrimitive())
+    		{
+				newFieldElement.addContent(new Element("value").setText(field.get(obj).toString()));
+    		}
+    		else // field is a reference
+    		{
+    			try
+    			{
+    				newFieldElement.addContent(new Element("reference").setText(field.get(obj).toString()));
+    			}
+    			catch(NullPointerException e)
+    			{
+    				newFieldElement.addContent(new Element("reference").setText("null"));
+    			}
+    		}
+    		root.addContent(newFieldElement);
+    	}
+    	
+    	// for each element in array get its value or reference
+    	
+    	// for each non-primitive recursively get its tree
+
+    	Document doc = new Document(root);
+    	doc.setDocType(new DocType("rooty"));
+
+    	System.out.println(doc.toString());
+
+		XMLOutputter xmlOutput = new XMLOutputter();
+		xmlOutput.setFormat(Format.getPrettyFormat());
+		
+		OutputStream outStream = System.out;
+		xmlOutput.output(doc, outStream);
+    }
+    
+    public static void main(String[] args)
+    {
+    	new Library();
     }
 }
