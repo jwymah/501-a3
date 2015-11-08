@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rooty>
+<serialized>
+  <object class="ClassA" id="1">
+    <field name="val" declaringclass="ClassA">
+      <value>3</value>
+    </field>
+    <field name="val2" declaringclass="ClassA">
+      <value>0.2</value>
+    </field>
+    <field name="val3" declaringclass="ClassA">
+      <value>true</value>
+    </field>
+  </object>
+  <object class="ClassA" id="2">
+    <field name="val" declaringclass="ClassA">
+      <value>12</value>
+    </field>
+    <field name="val2" declaringclass="ClassA">
+      <value>0.2</value>
+    </field>
+    <field name="val3" declaringclass="ClassA">
+      <value>true</value>
+    </field>
+  </object>
+  <object class="[I" id="3" length="3">
+    <value>1</value>
+    <value>2</value>
+    <value>3</value>
+  </object>
+  <object class="[Ljava.lang.String" id="4" length="2">
+    <value>hi</value>
+    <value>no</value>
+  </object>
+  <object class="ClassB" id="0">
+    <field name="val" declaringclass="ClassB">
+      <reference>1</reference>
+    </field>
+    <field name="val2" declaringclass="ClassB">
+      <reference>2</reference>
+    </field>
+    <field name="val3" declaringclass="ClassB">
+      <reference />
+    </field>
+    <field name="int1" declaringclass="ClassB">
+      <value>111</value>
+    </field>
+    <field name="string1" declaringclass="ClassB">
+      <value>Hello!</value>
+    </field>
+    <field name="intArray" declaringclass="ClassB">
+      <reference>3</reference>
+    </field>
+    <field name="stringArray" declaringclass="ClassB">
+      <reference>4</reference>
+    </field>
+  </object>
+</serialized>
