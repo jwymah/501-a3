@@ -1,24 +1,14 @@
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.Field;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.IdentityHashMap;
-import java.util.Map;
-import java.util.Scanner;
 
-import org.jdom2.DocType;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
 import org.jdom2.input.SAXBuilder;
 
 /*
@@ -27,10 +17,10 @@ import org.jdom2.input.SAXBuilder;
  *
  * @author bighoon, @date 06/11/15 10:16 PM
  */
-public class Deserializer {	
+public class Deserializer {
+	IdentityHashMap<Object, Object> deserializedMap = new IdentityHashMap<>();
     public Deserializer()
     {
-    	BufferedReader br = null;
     	try
 		{
     		File file = new File("classB.txt");
@@ -41,33 +31,66 @@ public class Deserializer {
     		Element rootNode = doc.getRootElement();
     		
     		for (Element element : rootNode.getChildren())
-    		{    			
+    		{
     			// create objects for every child of root element
-    			if (element.getAttribute("length") == null) //TODO: add array parsing
+    			if (deserializedMap.get(element.getAttribute("class")) != null)
     			{
-	    			Class classObj = Class.forName(element.getAttributeValue("class"));
+    				continue; // because it may have already been instantiated due to being pointed to by another object
+    			}
+    			
+    			if (element.getAttribute("length") != null)
+    			{
+    				System.out.println("DESERIALIZING ARRAY: " + element.getAttributeValue("class")
+    									+ " ID: " + element.getAttributeValue("id"));
+    			}
+    			else
+    			{
+	    			Class<?> classObj = Class.forName(element.getAttributeValue("class"));
 	    			classObj.getDeclaredConstructor(null).setAccessible(true);
 	    			Object newInstance = null;
 	    			try
 					{
 						newInstance = classObj.newInstance();
+						deserializedMap.put(element.getAttribute("id"), newInstance);
+						
+						System.err.println("Serializing: " + newInstance.getClass() + " ID: " + element.getAttributeValue("id"));
+						
 						// all of the element's children are fields
 						for (Element child : element.getChildren())
 						{
 							String fieldName = child.getAttributeValue("name");
 							String value = child.getChildren().get(0).getText();
 							
-							System.out.println("setting field on id {"+element.getAttributeValue("id")+"}" + classObj.toString() + ":" + fieldName + " --> " + value);
+							System.out.println("setting field on id {"+element.getAttributeValue("id")+"} " + classObj.toString() + ":" + fieldName + " --> " + value);
 							try
 							{
 								Field field = classObj.getDeclaredField(fieldName);
 								field.setAccessible(true);
 								
-								field.set(newInstance, convert(field.getType(), value));
+								if (child.getChildren().get(0).getName() == "reference")
+								{
+									//TODO: find the object's reference in map if already created
+									// otherwise go and create it...
+									// or is there a better way?
+									if (deserializedMap.get(child.getAttribute("id")) != null)
+									{
+										field.set(newInstance, deserializedMap.get(child.getAttribute("id")));
+									}
+									else
+									{
+										// go deserialize a specific object
+									}
+									
+								}
+								else
+								{
+									field.set(newInstance, convert(field.getType(), value));
+								}
 							}
 							catch (NullPointerException e)
 							{
-//								e.printStackTrace();
+								System.err.println(child.getChildren().get(0).getName());
+								e.printStackTrace();
 							}
 							catch (NoSuchFieldException | IllegalAccessException e)
 							{
