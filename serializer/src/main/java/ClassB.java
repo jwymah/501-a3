@@ -20,4 +20,13 @@ public class ClassB implements Runnable
     private String string1 = "Hello!";
     private int[] intArray= {1,2,3};
     private String[] stringArray = {"hi", "no"};
+    
+    public int[] getIntArray()
+    {
+    	return intArray;
+    }
+    public ClassA getVal()
+    {
+    	return val;
+    }
 }

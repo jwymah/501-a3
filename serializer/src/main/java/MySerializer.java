@@ -33,7 +33,6 @@ public class MySerializer {
 			doc.setDocType(new DocType("rooty"));
 			
 			rootElement.addContent(serialize(new ClassB()));
-//			serialize("hello");	// lots of stuff in String..
 		
 			System.out.println(doc.toString());
 		
@@ -62,7 +61,7 @@ public class MySerializer {
     	
     	if (obj.getClass().isArray())
     	{
-    		thisNode.setAttribute("class", obj.getClass().toString().substring(6).split(";")[0]);
+    		thisNode.setAttribute("class", obj.getClass().toString().substring(6));
     		thisNode.setAttribute("length", String.valueOf(Array.getLength(obj)));
 			
     		if (obj.getClass().getComponentType().isPrimitive()
