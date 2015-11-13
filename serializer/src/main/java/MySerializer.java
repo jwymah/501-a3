@@ -64,8 +64,8 @@ public class MySerializer {
     		thisNode.setAttribute("class", obj.getClass().toString().substring(6));
     		thisNode.setAttribute("length", String.valueOf(Array.getLength(obj)));
 			
-    		if (obj.getClass().getComponentType().isPrimitive()
-    				|| obj.getClass().getComponentType() == String.class)
+    		if (obj.getClass().getComponentType().isPrimitive())
+//    				|| obj.getClass().getComponentType() == String.class)
     		{
     			for (int i=0; i<Array.getLength(obj); i++)
         		{
@@ -104,8 +104,8 @@ public class MySerializer {
     								.setAttribute("name", field.getName())
     								.setAttribute("declaringclass", field.getDeclaringClass().getName());
     		
-    		if (field.getType().isPrimitive()
-    				|| field.getType() == String.class)
+    		if (field.getType().isPrimitive())
+//    				|| field.getType() == String.class)
     		{
     			try
     			{

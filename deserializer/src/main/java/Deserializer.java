@@ -55,9 +55,10 @@ public class Deserializer {
     				System.out.println(f.get(entry.getValue()));
     			}
     		}
-    		
+    		String[] strange = new String[3];
+    		strange.toString();
     		ClassB b = (ClassB) deserializedMap.get("0");
-    		System.err.println(b.int1);
+//    		System.err.println(b.getIntArray()[0]);
     		
 //    		MySerializer mySerializer = new MySerializer();
 //    		Element reserialized = mySerializer.serialize(deserializedMap.get("0"));
@@ -78,11 +79,52 @@ public class Deserializer {
 		{
 			System.out.println("DESERIALIZING ARRAY: " + element.getAttributeValue("class")
 								+ " ID: " + element.getAttributeValue("id"));
-			// TODO: stubbed
-			Object newArray = getComponentType(element.getAttributeValue("class"), Integer.parseInt(element.getAttributeValue("length")));
-//			Object newArray = Array.newInstance(componentType, Integer.parseInt(element.getAttributeValue("length")));
-			deserializedMap.put(element.getAttributeValue("id"), newArray);
-//			java.lang.reflect.Array.newInstance(Class<?> componentType, int length)
+			// TODO: set array values
+			Object newArray = makeArray(element.getAttributeValue("class"), Integer.parseInt(element.getAttributeValue("length")));
+			Class<?> componentType = newArray.getClass().getComponentType();
+			
+			if (newArray.getClass().getComponentType().isPrimitive())
+			{
+				for (int i=0; i<element.getChildren().size(); i++)
+				{
+					Element child = element.getChildren().get(i);
+					if(element.getAttributeValue("class").compareTo("[C") == 0)
+					{
+						Array.set(newArray, i, child.getText().charAt(0));
+					}
+					else
+					{
+						Array.set(newArray, i, convert(componentType, child.getText()));
+					}
+				}
+				deserializedMap.put(element.getAttributeValue("id"), newArray);
+			}
+			else //not primitive
+			{
+				for (int i=0; i<element.getChildren().size(); i++)
+				{
+					Element child = element.getChildren().get(i);
+					// if in map
+					if (deserializedMap.get(child.getText()) != null)
+					{
+						Array.set(newArray, i, deserializedMap.get(child.getText()));
+					}
+					// else not in map
+					else
+					{
+						try
+						{
+							Array.set(newArray, i, findAndSerializeById(child.getText()));
+						}
+						catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | IllegalAccessException e)
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+			//TODO check array contents
 		}
 		else
 		{
@@ -135,42 +177,12 @@ public class Deserializer {
 					if (deserializedMap.get(value) != null)
 					{
 						System.err.println("EVEEEEEEEEEEEEEEEEEEEEEE"); //TODO: make sure this works
+						field.setAccessible(true);
 						field.set(classInstance, deserializedMap.get(value));
 					}
 					else
 					{
-						// go deserialize a specific object...
-						// go recursive and put this call onto the stack
-						for (Element searchElement : rootNode.getChildren())
-						{
-							if (searchElement.getAttributeValue("id").compareTo(value) == 0)
-							{
-								System.err.println("FOUND IT... now go deserialize it");
-								System.out.print("key set size: ");
-								System.out.println(deserializedMap.size());
-								
-								try
-								{
-									deserialize(searchElement);
-								}
-								catch (ClassNotFoundException | NoSuchMethodException e)
-								{
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								field.set(classInstance, deserializedMap.get(value));
-								System.err.println("stored in map as: " + deserializedMap.get(value));
-								
-								for (Object object : deserializedMap.keySet())
-								{
-									System.out.println("----"+object.getClass().toString());
-									System.out.println("--" + object);
-									System.out.println("-" + deserializedMap.get(value));
-									System.out.println("value: " + value + " key: " + object);
-								}
-								break;
-							}
-						}
+						field.set(classInstance, findAndSerializeById(value));
 					}
 				}
 				else // primitive that is not null
@@ -193,24 +205,55 @@ public class Deserializer {
 		System.out.print("key set size: ");
 		System.out.println(deserializedMap.size());
 	}
+
+	private Object findAndSerializeById(String id) throws IllegalAccessException
+	{
+		// go deserialize a specific object...
+		// go recursive and put this call onto the stack
+		for (Element searchElement : rootNode.getChildren())
+		{
+			if (searchElement.getAttributeValue("id").compareTo(id) == 0)
+			{
+				System.err.println("FOUND IT... now go deserialize it");
+				System.out.print("key set size: ");
+				System.out.println(deserializedMap.size());
+				
+				try
+				{
+					deserialize(searchElement);
+				}
+				catch (ClassNotFoundException | NoSuchMethodException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return deserializedMap.get(id);
+			}
+		}
+		return null;
+	}
     
     // from the second answer on 
     // http://stackoverflow.com/questions/13943550/how-to-convert-from-string-to-a-primitive-type-or-standard-java-wrapper-types
     private Object convert(Class<?> targetType, String text) {
+    	if (targetType.isInstance(char.class))
+    	{
+    		return char.class.cast(text);
+    	}
         PropertyEditor editor = PropertyEditorManager.findEditor(targetType);
         editor.setAsText(text);
         return editor.getValue();
     }
 
-	private Object getComponentType(String className, int length) throws ClassNotFoundException{
+	private Object makeArray(String className, int length) throws ClassNotFoundException{
 		if("[I".equals(className)) return Array.newInstance(int.class, length);
-		if("[D".equals(className)) return double.class;
-		if("[F".equals(className)) return float.class;
-		if("[B".equals(className)) return byte.class;
-		if("[J".equals(className)) return long.class;
-		if("[S".equals(className)) return short.class;
-		if("[Z".equals(className)) return boolean.class;
-		if("[C".equals(className)) return char.class;
+		if("[D".equals(className)) return Array.newInstance(double.class, length);
+		if("[F".equals(className)) return Array.newInstance(float.class, length);
+		if("[B".equals(className)) return Array.newInstance(byte.class, length);
+		if("[J".equals(className)) return Array.newInstance(long.class, length);
+		if("[S".equals(className)) return Array.newInstance(short.class, length);
+		if("[Z".equals(className)) return Array.newInstance(boolean.class, length);
+		if("[C".equals(className)) return Array.newInstance(char.class, length);
 		// remove Leading [L and trailing ;
 		return Array.newInstance(Class.forName(className.substring(2,className.length()-1)), length);
 	}

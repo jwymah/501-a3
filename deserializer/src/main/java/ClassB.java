@@ -19,7 +19,12 @@ public class ClassB implements Runnable
     public int int1;;
     private String string1 = "Hello!";
     private int[] intArray= {1,2,3};
-    private String[] stringArray = {"hi", "no"};
+    private String[] stringArray;// = {"hi", "no"};
+    
+    public String[] getStringArray()
+    {
+    	return stringArray;
+    }
     
     public int[] getIntArray()
     {
