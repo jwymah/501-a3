@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
  */
 public class LibraryTest {
     @Test public void testSomeLibraryMethod() {
-        MySerializer classUnderTest = new MySerializer();
+//        MySerializer classUnderTest = new MySerializer();
 //        assertTrue("someLibraryMethod should return 'true'", classUnderTest.someLibraryMethod());
     }
 }

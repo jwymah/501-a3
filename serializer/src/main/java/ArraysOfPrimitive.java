@@ -3,7 +3,7 @@ public class ArraysOfPrimitive {
 	
 	public ArraysOfPrimitive()
 	{
-		arrayInt = new int[100];
+		arrayInt = new int[3];
 	}
 	
 	public int[] getArrayInt() {

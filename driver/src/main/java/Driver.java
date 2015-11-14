@@ -7,7 +7,6 @@ import java.util.Scanner;
  * @author bighoon, @date 13/11/15 6:05 PM
  */
 public class Driver {
-	private static Scanner in = new Scanner(System.in);
 	private static ObjectCreator objCreator = new ObjectCreator();
 	public static void main(String[] args)
 	{
@@ -20,9 +19,9 @@ public class Driver {
 			System.out.println("3: \t send to server");
 			System.out.println("4: \t listen as server (received stream written to file)");
 			System.out.println("5: \t deserialize from file");
-			System.out.println("6: \t quit");
+			System.out.println("0: \t quit");
 			//print main menu
-			int input = in.nextInt();
+			int input = Util.getMenuIntFromUser(5);
 			
 			switch (input)
 			{
@@ -38,7 +37,7 @@ public class Driver {
 					break;
 				case 5:
 					break;
-				case 6:
+				case 0:
 					loop = false;
 			}
 		}

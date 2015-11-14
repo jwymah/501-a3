@@ -158,5 +158,6 @@ public class Serializer {
     {
     	Serializer s = new Serializer();
     	s.serialize(new CollectionObjects());
+    	System.out.println(Object.class.isInstance(String.class));
     }
 }

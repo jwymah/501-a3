@@ -75,7 +75,7 @@ public class Deserializer {
 								+ " ID: " + element.getAttributeValue("id"));
 			
 			Object newArray = makeArray(element.getAttributeValue("class"), Integer.parseInt(element.getAttributeValue("length")));
-			Class<?> componentType = newArray.getClass().getComponentType();
+			Class<?> componentType = newArray.getClass().getComponentType(); //TODO this is giving a generic type... Class<T>
 			
 			if (newArray.getClass().getComponentType().isPrimitive())
 			{
