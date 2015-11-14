@@ -32,7 +32,10 @@ public class MySerializer {
 			Document doc = new Document(rootElement);
 			doc.setDocType(new DocType("rooty"));
 			
-			rootElement.addContent(serialize(new ClassB()));
+			CollectionObjects co = new CollectionObjects();
+			rootElement.addContent(serialize(co.getListObjs()));
+			
+//			rootElement.addContent(serialize(new ClassB()));
 		
 			System.out.println(doc.toString());
 		
@@ -80,7 +83,11 @@ public class MySerializer {
 	    		{
 	    			Element arrayItem = new Element("reference");
 	    			
-	    			if (Array.get(obj, i) != null && serializedMap.get(Array.get(obj, i).getClass()) == null)
+	    			if (Array.get(obj, i) == null)
+	    			{
+	    				continue;
+	    			}
+	    			else if (Array.get(obj, i) != null && serializedMap.get(Array.get(obj, i).getClass()) == null)
 	    			{
 	        			Element objectXml = serialize(Array.get(obj, i));
 	    				arrayItem.setText(objectXml.getAttributeValue("id"));

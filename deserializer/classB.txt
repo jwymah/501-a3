@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rooty>
 <serialized>
-  <object class="ClassB" id="0">
-    <field name="val" declaringclass="ClassB">
-      <reference>1</reference>
-    </field>
-    <field name="val2" declaringclass="ClassB">
-      <reference>2</reference>
-    </field>
-    <field name="val3" declaringclass="ClassB">
-      <reference />
-    </field>
-    <field name="int1" declaringclass="ClassB">
-      <value>111</value>
-    </field>
-    <field name="string1" declaringclass="ClassB">
-      <value>Hello!</value>
-    </field>
-    <field name="intArray" declaringclass="ClassB">
-      <reference>3</reference>
-    </field>
-    <field name="stringArray" declaringclass="ClassB">
-      <reference>4</reference>
-    </field>
-  </object>
   <object class="ClassA" id="1">
     <field name="val" declaringclass="ClassA">
       <value>3</value>
@@ -46,13 +23,121 @@
       <value>true</value>
     </field>
   </object>
-  <object class="[I" id="3" length="3">
+  <object class="[C" id="4" length="6">
+    <value>H</value>
+    <value>e</value>
+    <value>l</value>
+    <value>l</value>
+    <value>o</value>
+    <value>!</value>
+  </object>
+  <object class="[Ljava.io.ObjectStreamField;" id="5" length="0" />
+  <object class="java.lang.String$CaseInsensitiveComparator" id="6">
+    <field name="serialVersionUID" declaringclass="java.lang.String$CaseInsensitiveComparator">
+      <value>8575799808933029326</value>
+    </field>
+  </object>
+  <object class="java.lang.String" id="3">
+    <field name="value" declaringclass="java.lang.String">
+      <reference>4</reference>
+    </field>
+    <field name="hash" declaringclass="java.lang.String">
+      <value>0</value>
+    </field>
+    <field name="serialVersionUID" declaringclass="java.lang.String">
+      <value>-6849794470754667710</value>
+    </field>
+    <field name="serialPersistentFields" declaringclass="java.lang.String">
+      <reference>5</reference>
+    </field>
+    <field name="CASE_INSENSITIVE_ORDER" declaringclass="java.lang.String">
+      <reference>6</reference>
+    </field>
+  </object>
+  <object class="[I" id="7" length="3">
     <value>1</value>
     <value>2</value>
     <value>3</value>
   </object>
-  <object class="[Ljava.lang.String;" id="4" length="2">
-    <value>hi</value>
-    <value>no</value>
+  <object class="[C" id="10" length="2">
+    <value>h</value>
+    <value>i</value>
+  </object>
+  <object class="[Ljava.io.ObjectStreamField;" id="11" length="0" />
+  <object class="java.lang.String$CaseInsensitiveComparator" id="12">
+    <field name="serialVersionUID" declaringclass="java.lang.String$CaseInsensitiveComparator">
+      <value>8575799808933029326</value>
+    </field>
+  </object>
+  <object class="java.lang.String" id="9">
+    <field name="value" declaringclass="java.lang.String">
+      <reference>10</reference>
+    </field>
+    <field name="hash" declaringclass="java.lang.String">
+      <value>0</value>
+    </field>
+    <field name="serialVersionUID" declaringclass="java.lang.String">
+      <value>-6849794470754667710</value>
+    </field>
+    <field name="serialPersistentFields" declaringclass="java.lang.String">
+      <reference>11</reference>
+    </field>
+    <field name="CASE_INSENSITIVE_ORDER" declaringclass="java.lang.String">
+      <reference>12</reference>
+    </field>
+  </object>
+  <object class="[C" id="14" length="2">
+    <value>n</value>
+    <value>o</value>
+  </object>
+  <object class="[Ljava.io.ObjectStreamField;" id="15" length="0" />
+  <object class="java.lang.String$CaseInsensitiveComparator" id="16">
+    <field name="serialVersionUID" declaringclass="java.lang.String$CaseInsensitiveComparator">
+      <value>8575799808933029326</value>
+    </field>
+  </object>
+  <object class="java.lang.String" id="13">
+    <field name="value" declaringclass="java.lang.String">
+      <reference>14</reference>
+    </field>
+    <field name="hash" declaringclass="java.lang.String">
+      <value>0</value>
+    </field>
+    <field name="serialVersionUID" declaringclass="java.lang.String">
+      <value>-6849794470754667710</value>
+    </field>
+    <field name="serialPersistentFields" declaringclass="java.lang.String">
+      <reference>15</reference>
+    </field>
+    <field name="CASE_INSENSITIVE_ORDER" declaringclass="java.lang.String">
+      <reference>16</reference>
+    </field>
+  </object>
+  <object class="[Ljava.lang.String;" id="8" length="2">
+    <reference>9</reference>
+    <reference>13</reference>
+  </object>
+  <object class="ClassB" id="0">
+    <field name="val" declaringclass="ClassB">
+      <reference>1</reference>
+    </field>
+    <field name="val2" declaringclass="ClassB">
+      <reference>2</reference>
+    </field>
+    <field name="val3" declaringclass="ClassB">
+      <reference />
+    </field>
+    <field name="int1" declaringclass="ClassB">
+      <value>111</value>
+    </field>
+    <field name="string1" declaringclass="ClassB">
+      <reference>3</reference>
+    </field>
+    <field name="intArray" declaringclass="ClassB">
+      <reference>7</reference>
+    </field>
+    <field name="stringArray" declaringclass="ClassB">
+      <reference>8</reference>
+    </field>
   </object>
 </serialized>

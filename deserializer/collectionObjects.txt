@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rooty>
+<serialized>
+  <object class="[Ljava.lang.Object;" id="1" length="0" />
+  <object class="[Ljava.lang.Object;" id="2" length="0" />
+  <object class="SimpleInts" id="4">
+    <field name="varInt1" declaringclass="SimpleInts">
+      <value>0</value>
+    </field>
+    <field name="varInt2" declaringclass="SimpleInts">
+      <value>0</value>
+    </field>
+    <field name="varInt3" declaringclass="SimpleInts">
+      <value>0</value>
+    </field>
+    <field name="varInt4" declaringclass="SimpleInts">
+      <value>0</value>
+    </field>
+  </object>
+  <object class="[I" id="6" length="100">
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+  </object>
+  <object class="ArraysOfPrimitive" id="5">
+    <field name="arrayInt" declaringclass="ArraysOfPrimitive">
+      <reference>6</reference>
+    </field>
+  </object>
+  <object class="[Ljava.lang.Object;" id="8" length="100" />
+  <object class="ArrayOfObjectRefs" id="7">
+    <field name="arrayObjectRefs" declaringclass="ArrayOfObjectRefs">
+      <reference>8</reference>
+    </field>
+  </object>
+  <object class="[Ljava.lang.Object;" id="3" length="10">
+    <reference>4</reference>
+    <reference>5</reference>
+    <reference>7</reference>
+  </object>
+  <object class="java.util.ArrayList" id="0">
+    <field name="serialVersionUID" declaringclass="java.util.ArrayList">
+      <value>8683452581122892189</value>
+    </field>
+    <field name="DEFAULT_CAPACITY" declaringclass="java.util.ArrayList">
+      <value>10</value>
+    </field>
+    <field name="EMPTY_ELEMENTDATA" declaringclass="java.util.ArrayList">
+      <reference>1</reference>
+    </field>
+    <field name="DEFAULTCAPACITY_EMPTY_ELEMENTDATA" declaringclass="java.util.ArrayList">
+      <reference>2</reference>
+    </field>
+    <field name="elementData" declaringclass="java.util.ArrayList">
+      <reference>3</reference>
+    </field>
+    <field name="size" declaringclass="java.util.ArrayList">
+      <value>3</value>
+    </field>
+    <field name="MAX_ARRAY_SIZE" declaringclass="java.util.ArrayList">
+      <value>2147483639</value>
+    </field>
+  </object>
+</serialized>
