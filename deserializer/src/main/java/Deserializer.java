@@ -41,7 +41,7 @@ public class Deserializer {
     				continue; // because it may have already been instantiated due to being pointed to by another object
     			}
     			
-    			deserialize(element);
+    			deserializeElement(element);
     		}
     		
     		System.out.println("printing out map contents. size: " + deserializedMap.size() + "\n");
@@ -63,18 +63,17 @@ public class Deserializer {
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
 
-	private void deserialize(Element element) throws ClassNotFoundException, NoSuchMethodException
+	private void deserializeElement(Element element) throws ClassNotFoundException, NoSuchMethodException
 	{
 		if (element.getAttribute("length") != null)
 		{
 			System.out.println("DESERIALIZING ARRAY: " + element.getAttributeValue("class")
 								+ " ID: " + element.getAttributeValue("id"));
-			// TODO: set array values
+			
 			Object newArray = makeArray(element.getAttributeValue("class"), Integer.parseInt(element.getAttributeValue("length")));
 			Class<?> componentType = newArray.getClass().getComponentType();
 			
@@ -113,7 +112,6 @@ public class Deserializer {
 						}
 						catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | IllegalAccessException e)
 						{
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -168,7 +166,6 @@ public class Deserializer {
 					System.err.println("is a reference with value: " + value);
 					if (deserializedMap.get(value) != null)
 					{
-						System.err.println("EVEEEEEEEEEEEEEEEEEEEEEE"); //TODO: make sure this works
 						field.setAccessible(true);
 						field.set(classInstance, deserializedMap.get(value));
 					}
@@ -211,7 +208,7 @@ public class Deserializer {
 				
 				try
 				{
-					deserialize(searchElement);
+					deserializeElement(searchElement);
 				}
 				catch (ClassNotFoundException | NoSuchMethodException e)
 				{

@@ -20,22 +20,28 @@ import org.jdom2.IllegalDataException;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-public class MySerializer {
-	private Integer id = 0;
-	private Map<Object, Integer> serializedMap = new IdentityHashMap<Object, Integer>();
-	private Element rootElement = new Element("serialized");
+public class Serializer {
+	private Integer id;
+	private Map<Object, Integer> serializedMap;
+	private Element rootElement;
 	
-	public MySerializer()
+	public Serializer()
 	{
+		id = 0;
+		serializedMap = new IdentityHashMap<Object, Integer>();
+		rootElement = new Element("serialized");
+	}
+	
+	public Document serialize(Object obj)
+	{
+		Document doc = null;
 		try
 		{
-			Document doc = new Document(rootElement);
+			doc = new Document(rootElement);
 			doc.setDocType(new DocType("rooty"));
 			
 			CollectionObjects co = new CollectionObjects();
-			rootElement.addContent(serialize(co.getListObjs()));
-			
-//			rootElement.addContent(serialize(new ClassB()));
+			rootElement.addContent(serializeObject(obj));
 		
 			System.out.println(doc.toString());
 		
@@ -47,12 +53,13 @@ public class MySerializer {
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return doc;
+		
 	}
 	
-    public Element serialize(Object obj) throws IllegalArgumentException, IllegalAccessException, IOException, DataConversionException {
+    public Element serializeObject(Object obj) throws IllegalArgumentException, IllegalAccessException, IOException, DataConversionException {
     	Field[] fields = obj.getClass().getDeclaredFields();
     	
     	Element thisNode = new Element("object")
@@ -89,7 +96,7 @@ public class MySerializer {
 	    			}
 	    			else if (Array.get(obj, i) != null && serializedMap.get(Array.get(obj, i).getClass()) == null)
 	    			{
-	        			Element objectXml = serialize(Array.get(obj, i));
+	        			Element objectXml = serializeObject(Array.get(obj, i));
 	    				arrayItem.setText(objectXml.getAttributeValue("id"));
 	        			rootElement.addContent(objectXml);
 	    			}
@@ -130,7 +137,7 @@ public class MySerializer {
 
 				if (field.get(obj) != null && serializedMap.get(field.get(obj).getClass()) == null)
 				{
-					Element child = serialize(field.get(obj));
+					Element child = serializeObject(field.get(obj));
 					Integer newId = child.getAttribute("id").getIntValue();
 					rootElement.addContent(child);
 					
@@ -149,6 +156,7 @@ public class MySerializer {
     
     public static void main(String[] args)
     {
-    	new MySerializer();
+    	Serializer s = new Serializer();
+    	s.serialize(new CollectionObjects());
     }
 }
