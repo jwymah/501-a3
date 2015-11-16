@@ -23,9 +23,16 @@ public class Deserializer {
 	
     public Deserializer()
     {
-    	try
+    	Object result = deserialize();
+    	ObjectInspector oi = new ObjectInspector();
+    	oi.inspect(result, false);
+    	
+    }
+
+	public Object deserialize()
+	{
+		try
 		{
-//    		File file = new File("classB.txt");
     		File file = new File("collectionObjects.txt");
     		
     		SAXBuilder saxBuilder = new SAXBuilder();
@@ -44,20 +51,35 @@ public class Deserializer {
     			deserializeElement(element);
     		}
     		
+    		// non functional requirement below
     		System.out.println("printing out map contents. size: " + deserializedMap.size() + "\n");
     		
     		for (Entry<String, Object> entry : deserializedMap.entrySet())
     		{
-    			if (entry == null) { continue; }
-    			System.out.println("{"+entry.getValue().getClass().getName()+"}");
+    			if (entry.getValue() == null) { continue; }
+    			System.out.println("{" + entry.getValue().getClass().getName() + "}");
     			if (entry.getValue().getClass().isArray())
     			{
     				System.out.println("\t array contents here");
     			}
-    			for (Field f : entry.getValue().getClass().getDeclaredFields())
+    			else
     			{
-    				f.setAccessible(true);
-    				System.out.println("\t" + f.get(entry.getValue()));
+	    			for (Field f : entry.getValue().getClass().getDeclaredFields())
+	    			{
+	    				f.setAccessible(true);
+	    				System.out.print("\tfield:\t" + f.getName() + "\tvalue:\t");
+//	    				if (f.get(entry.getValue()) != null)
+//						{
+	    				try
+	    				{
+							System.out.println(f.get(entry.getValue()));
+	    				}
+	    				catch(Exception e)
+	    				{
+	    					System.out.println();
+	    				}
+//						}
+	    			}
     			}
     		}    		
 		}
@@ -65,7 +87,9 @@ public class Deserializer {
 		{
 			e.printStackTrace();
 		}
-    }
+		
+		return deserializedMap.get("0");
+	}
 
 	private void deserializeElement(Element element) throws ClassNotFoundException, NoSuchMethodException
 	{
