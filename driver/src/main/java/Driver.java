@@ -127,23 +127,19 @@ public class Driver {
 				
 				while (incoming != null)
 				{
-					if (incoming.compareTo("</serialized>") == 0)
-					{
-						socket.close();
-						break;
-					}
 					stringBuilder.append(incoming);
 					System.err.println(incoming);
 					
 					incoming = br.readLine();
 				}
-				stringBuilder.append(incoming);
+//				stringBuilder.append(incoming);
+				socket.close();
 				br.close();
 				
 				System.out.println("+++++++\t DONE RECEIVING XML. DESERIALIZING IT \t++++++\n\n");
 				
 				SAXBuilder saxB = new SAXBuilder();
-				Document document = saxB.build(new StringReader(stringBuilder.toString()));
+				Document document = saxB.build(new StringReader(stringBuilder.toString().trim()));
 				Deserializer deserializer = new Deserializer();
 				Object deserializedObj = deserializer.deserialize(document);
 	

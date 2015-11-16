@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
-import sun.security.provider.certpath.CollectionCertStore;
-
 public class ObjectCreator
 {
 	private List<Object> objList = new ArrayList<Object>();

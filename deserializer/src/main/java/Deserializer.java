@@ -27,6 +27,7 @@ public class Deserializer {
 
 	public Object deserialize(Document doc)
 	{
+		deserializedMap.clear();
 		try
 		{
     		File file = new File("sample.txt");
@@ -53,7 +54,7 @@ public class Deserializer {
     		for (Entry<String, Object> entry : deserializedMap.entrySet())
     		{
     			if (entry.getValue() == null) { continue; }
-    			System.out.println("{" + entry.getValue() + "}");
+    			System.out.println("{" + entry.getKey() + " : " + entry.getValue() + "}");
     			if (entry.getValue().getClass().isArray())
     			{
     				for (int i=0; i<Array.getLength(entry.getValue()); i++)
@@ -84,7 +85,16 @@ public class Deserializer {
 			e.printStackTrace();
 		}
 		
-		return deserializedMap.get("0");
+		String idOfRoot;
+		int lowId=1000;
+		for(Entry entry : deserializedMap.entrySet())
+		{
+			if (Integer.parseInt((String) entry.getKey()) < lowId)
+			{
+				lowId = Integer.parseInt((String) entry.getKey());
+			}
+		}
+		return deserializedMap.get(Integer.toString(lowId));
 	}
 
 	private void deserializeElement(Element element) throws ClassNotFoundException, NoSuchMethodException
