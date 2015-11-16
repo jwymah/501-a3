@@ -1,0 +1,29 @@
+Student: Jeremy Mah
+ID: 10053908
+CPCS 501
+TUT: MW @ 10
+
+
+
+HOW TO USE:
+Uses gradle buildscripts...to build:
+		./gradlew clean build cleanEclipse eclipse
+
+from the main folder.
+That will compile the 3 projects and create .project folders to be used by eclipse.
+When I split the project into 3 separate projects I broke the build/run features and at the moment
+this ONLY works when running in eclipse.
+
+TO RUN:
+
+The Main class is driver/src/main/java/Driver.java
+(althought serializer and deserializer can be run independently provided Mains have sufficient info)
+
+add 2 arguments: [hostname] [port]
+to the run configurations and follow the on screen instructions.
+Hostname would be the address of the server, and port being the listening port.
+For the server the hostname should not matter but the port is important.
+
+
+
+Refactorings mostly done on the fly, tried to pick some out from version control
