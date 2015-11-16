@@ -26,6 +26,11 @@ public class Driver {
 	private String host;
 	public static void main(String[] args)
 	{
+		if (args.length != 2)
+		{
+			System.out.println("Improper usage. requires Host and Port number as the two arguments");
+			System.exit(1);
+		}
 		new Driver(args[0], Integer.parseInt(args[1]));
 	}
 	
@@ -89,6 +94,8 @@ public class Driver {
 					}
 					catch (IOException e)
 					{
+						System.err.println("Could not connect to server. Are you sure host and port are correct and");
+						System.err.println(" that the host is listening?");
 						e.printStackTrace();
 					}
 					
