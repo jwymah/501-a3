@@ -32,7 +32,7 @@ public class ObjectInspector
 	// -----------------------------------------------------------
 	public void inspect(Object obj, boolean recursive)
 	{
-		System.out.println("Inspecting " + obj.getClass().getName());
+		System.out.println("Inspecting " + obj);
 		this.recursive = recursive;
 		inspectedSet.put(obj, null);
 
@@ -105,7 +105,7 @@ public class ObjectInspector
 		while (!interfaceQueue.isEmpty())
 		{
 			Class<?> curr = interfaceQueue.poll();
-			System.out.println("Inspecting interface: " + curr.getName());
+			System.out.println("Inspecting interface: " + curr);
 			inspectMethods(curr);
 			inspectFields(curr, curr.getClass(), objectsToInspect, arrayELementsToInspect, false); //TODO THIS CAUSESE ERROR
 		}
@@ -149,22 +149,23 @@ public class ObjectInspector
 
 	private void inspectMethods(Class<?> objClass)
 	{
-		System.out.println("Methods:");
-		for (Method method : objClass.getDeclaredMethods())
-		{
-			try
-			{
-				System.out.println("\tName:\t" + method.getName());
-				printThrownExceptions(method);
-				printParameterTypes(method);
-				printModifiers(method);
-				System.out.println("\t  Return Type:\t\t" + method.getReturnType());
-				System.out.println();
-			}
-			catch (Exception e)
-			{
-			}
-		}
+		return;
+//		System.out.println("Methods:");
+//		for (Method method : objClass.getDeclaredMethods())
+//		{
+//			try
+//			{
+//				System.out.println("\tName:\t" + method.getName());
+//				printThrownExceptions(method);
+//				printParameterTypes(method);
+//				printModifiers(method);
+//				System.out.println("\t  Return Type:\t\t" + method.getReturnType());
+//				System.out.println();
+//			}
+//			catch (Exception e)
+//			{
+//			}
+//		}
 	}
 
 	private void printModifiers(Constructor<?> constructor)
@@ -227,7 +228,7 @@ public class ObjectInspector
 		while (e.hasMoreElements())
 		{
 			Field f = (Field) e.nextElement();
-			System.out.println("Inspecting Field: {"+ objClass.getName() + "." + f.getName()+":"+f.getType()+"}");
+			System.out.println("Inspecting Field: {"+ obj + "." + f.getName()+":"+f.getType()+"}");
 
 			try
 			{
@@ -255,7 +256,7 @@ public class ObjectInspector
 			if (!inspectedSet.containsKey(o))
 			{
 				System.out.println("******************");
-				System.out.println("Inspecting Array Object {" + o.getClass().getName() + "}");
+				System.out.println("Inspecting Array Object {" + o + "}");
 				System.out.println("******************");
 				inspect(o.getClass(), recursive);
 			}
@@ -277,7 +278,7 @@ public class ObjectInspector
 			{
 				System.out.print("\tName:\t" + objClass.getName() + "." + f.getName());
 				System.out.print("\tType:\t" + f.getType());
-				System.out.print("\tValue:\t" + f.get(obj));
+				System.out.print("\tValue:\t" + f.get(obj)); // TODO: this throws a NPE when trying iterate and toString()
 				System.out.println("\tModifiers:\t" + Modifier.toString(f.getModifiers()));
 			}
 			catch (Exception e)

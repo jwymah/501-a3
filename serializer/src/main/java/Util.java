@@ -7,10 +7,10 @@ public class Util
 	public static int getMenuIntFromUser(int max)
 	{
 		int input = -1;
-		while (input < 0 || input >= max)
+		while (input < 0 || input > max)
 		{
 			input = getIntFromUser();
-			if (input >= max)
+			if (input > max)
 			{
 				System.err.println("that was not a valid selection.. try again");
 			}

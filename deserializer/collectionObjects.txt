@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE rooty>
+
 <serialized>
   <object class="[Ljava.lang.Object;" id="2" length="0" />
   <object class="[Ljava.lang.Object;" id="3" length="0" />

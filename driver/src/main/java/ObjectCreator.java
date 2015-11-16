@@ -1,8 +1,11 @@
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
+
+import sun.security.provider.certpath.CollectionCertStore;
 
 public class ObjectCreator
 {
@@ -55,7 +58,7 @@ public class ObjectCreator
 							while (true)
 							{
 								System.out.print("enter index to modify from 0 to " + (Array.getLength(field.get(aop))-1));
-								System.out.println("or a negative int to exit");
+								System.out.println(" or a negative int to exit");
 								index = Util.getIntFromUserWithMax(Array.getLength(field.get(aop)));
 								if (index < 0)
 								{
@@ -116,6 +119,52 @@ public class ObjectCreator
 					}
 					break;
 				case 5:
+					System.out.println("Making a collections object");
+					CollectionObjects co = new CollectionObjects();
+					for (Field field : CollectionObjects.class.getDeclaredFields())
+					{
+						field.setAccessible(true);
+						if (field.getClass().isInstance(Collection.class))
+						{
+							continue;
+						}
+						while (true)
+						{
+							System.out.println("1: Select objects to be part of the collection");
+							System.out.println("0: Use default values");
+							int selection = Util.getMenuIntFromUser(1);
+							if (selection == 0)
+							{
+								break;
+							}
+							else
+							{
+								System.out.println("How many objects do you want to add to this collection?");
+								selection = Util.getIntFromUser();
+								if (selection < 1)
+								{
+									System.out.println("cannot make collection of that size. using default collection");
+									break;
+								}
+								ArrayList<Object> al = new ArrayList<Object>();
+								for (int i=0; i<selection; i++)
+								{
+									System.out.println("Choose an object to add to collection");
+									al.add(selectCompatibleObject(Object.class));
+								}
+								try
+								{
+									field.set(co, al);
+								}
+								catch (IllegalArgumentException | IllegalAccessException e)
+								{
+									e.printStackTrace();
+								}
+							}
+							break;
+						}
+					}
+					objList.add(co);
 					break;
 				case 0:
 					return;

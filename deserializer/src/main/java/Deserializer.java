@@ -23,20 +23,16 @@ public class Deserializer {
 	
     public Deserializer()
     {
-    	Object result = deserialize();
-    	ObjectInspector oi = new ObjectInspector();
-    	oi.inspect(result, false);
-    	
     }
 
-	public Object deserialize()
+	public Object deserialize(Document doc)
 	{
 		try
 		{
-    		File file = new File("collectionObjects.txt");
+    		File file = new File("sample.txt");
     		
     		SAXBuilder saxBuilder = new SAXBuilder();
-    		Document doc = saxBuilder.build(file);
+//    		Document doc = saxBuilder.build(file);
 
     		rootNode = doc.getRootElement();
     		
@@ -51,16 +47,19 @@ public class Deserializer {
     			deserializeElement(element);
     		}
     		
-    		// non functional requirement below
+    		// visualize what was done...
     		System.out.println("printing out map contents. size: " + deserializedMap.size() + "\n");
     		
     		for (Entry<String, Object> entry : deserializedMap.entrySet())
     		{
     			if (entry.getValue() == null) { continue; }
-    			System.out.println("{" + entry.getValue().getClass().getName() + "}");
+    			System.out.println("{" + entry.getValue() + "}");
     			if (entry.getValue().getClass().isArray())
     			{
-    				System.out.println("\t array contents here");
+    				for (int i=0; i<Array.getLength(entry.getValue()); i++)
+    				{
+    					System.out.println("\t[" + i + "] : " + Array.get(entry.getValue(), i));
+    				}
     			}
     			else
     			{
@@ -68,8 +67,6 @@ public class Deserializer {
 	    			{
 	    				f.setAccessible(true);
 	    				System.out.print("\tfield:\t" + f.getName() + "\tvalue:\t");
-//	    				if (f.get(entry.getValue()) != null)
-//						{
 	    				try
 	    				{
 							System.out.println(f.get(entry.getValue()));
@@ -78,7 +75,6 @@ public class Deserializer {
 	    				{
 	    					System.out.println();
 	    				}
-//						}
 	    			}
     			}
     		}    		
@@ -99,7 +95,7 @@ public class Deserializer {
 								+ " ID: " + element.getAttributeValue("id"));
 			
 			Object newArray = makeArray(element.getAttributeValue("class"), Integer.parseInt(element.getAttributeValue("length")));
-			Class<?> componentType = newArray.getClass().getComponentType(); //TODO this is giving a generic type... Class<T>
+			Class<?> componentType = newArray.getClass().getComponentType();
 			
 			if (newArray.getClass().getComponentType().isPrimitive())
 			{
@@ -211,7 +207,7 @@ public class Deserializer {
 			}
 			catch (NoSuchFieldException | IllegalAccessException e)
 			{
-//				e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
 		System.out.print("key set size: ");
@@ -271,6 +267,9 @@ public class Deserializer {
     
     public static void main(String[] args)
     {
-    	Deserializer deserializer = new Deserializer();
+//    	Deserializer deserializer = new Deserializer();
+//    	Object result = deserializer.deserialize();
+//    	ObjectInspector oi = new ObjectInspector();
+//    	oi.inspect(result, true);    	
     }
 }

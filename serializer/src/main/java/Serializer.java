@@ -13,7 +13,6 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 import org.jdom2.DataConversionException;
-import org.jdom2.DocType;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.IllegalDataException;
@@ -29,21 +28,19 @@ public class Serializer {
 	{
 		id = 0;
 		serializedMap = new IdentityHashMap<Object, Integer>();
-		rootElement = new Element("serialized");
 	}
 	
 	public Document serialize(Object obj)
 	{
 		Document doc = null;
+		rootElement = new Element("serialized");
 		try
 		{
 			doc = new Document(rootElement);
-			doc.setDocType(new DocType("rooty"));
 			
-			CollectionObjects co = new CollectionObjects();
 			rootElement.addContent(serializeObject(obj));
 		
-			System.out.println(doc.toString());
+			//System.out.println(rootElement);
 		
 			XMLOutputter xmlOutput = new XMLOutputter();
 			xmlOutput.setFormat(Format.getPrettyFormat());
@@ -75,7 +72,6 @@ public class Serializer {
     		thisNode.setAttribute("length", String.valueOf(Array.getLength(obj)));
 			
     		if (obj.getClass().getComponentType().isPrimitive())
-//    				|| obj.getClass().getComponentType() == String.class)
     		{
     			for (int i=0; i<Array.getLength(obj); i++)
         		{
@@ -92,7 +88,7 @@ public class Serializer {
 	    			
 	    			if (Array.get(obj, i) == null)
 	    			{
-	    				continue;
+	    				// do nothing. allow text to be blank
 	    			}
 	    			else if (Array.get(obj, i) != null && serializedMap.get(Array.get(obj, i).getClass()) == null)
 	    			{
@@ -158,6 +154,5 @@ public class Serializer {
     {
     	Serializer s = new Serializer();
     	s.serialize(new CollectionObjects());
-    	System.out.println(Object.class.isInstance(String.class));
     }
 }

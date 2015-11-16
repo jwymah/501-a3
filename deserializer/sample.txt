@@ -1,0 +1,43 @@
+<serialized>
+  <object class="SimpleInts" id="1">
+    <field name="varInt1" declaringclass="SimpleInts">
+      <value>1</value>
+    </field>
+    <field name="varInt2" declaringclass="SimpleInts">
+      <value>2</value>
+    </field>
+    <field name="varInt3" declaringclass="SimpleInts">
+      <value>3</value>
+    </field>
+    <field name="varInt4" declaringclass="SimpleInts">
+      <value>5</value>
+    </field>
+  </object>
+  <object class="[I" id="3" length="3">
+    <value>2</value>
+    <value>34</value>
+    <value>18</value>
+  </object>
+  <object class="ArraysOfPrimitive" id="2">
+    <field name="arrayInt" declaringclass="ArraysOfPrimitive">
+      <reference>3</reference>
+    </field>
+  </object>
+  <object class="[LSimpleObjects;" id="5" length="5" />
+  <object class="ArrayOfObjectRefs" id="4">
+    <field name="arrayObjectRefs" declaringclass="ArrayOfObjectRefs">
+      <reference>5</reference>
+    </field>
+  </object>
+  <object class="SimpleObjects" id="0">
+    <field name="ints1" declaringclass="SimpleObjects">
+      <reference>1</reference>
+    </field>
+    <field name="varObj1" declaringclass="SimpleObjects">
+      <reference>2</reference>
+    </field>
+    <field name="varObj2" declaringclass="SimpleObjects">
+      <reference>4</reference>
+    </field>
+  </object>
+</serialized>
