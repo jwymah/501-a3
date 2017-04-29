@@ -1,0 +1,102 @@
+commit cdfc1ccc8417d0f92f13398f341fb16fc6619fdc
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Mon Nov 16 15:51:48 2015 -0700
+
+    fixed client sending multiple times
+
+commit 57cc316aec2e5d0724f936c48d002fb368134f39
+Author: jmah mba <jeremyw.mah@gmail.com>
+Date:   Mon Nov 16 15:26:01 2015 -0700
+
+    fix some project setup and added a couple error handles
+
+commit f543e1580254ab7848dcc96c82eead8c5860ddec
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Mon Nov 16 15:16:37 2015 -0700
+
+    added networking
+
+commit b3f0309acaaf1a63041acffa65d555b2ce32eca1
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Sun Nov 15 18:47:33 2015 -0700
+
+    fix gradle project setup. trying to get collections working
+
+commit 35c2fbc881a6e64105e372b2ce9136d3584b0a5a
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Fri Nov 13 23:30:58 2015 -0700
+
+    added primitive/reference arrays. next is collections?
+
+commit 469a27fa851c1745eedd05a9098f3c066c6f733d
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Fri Nov 13 20:20:45 2015 -0700
+
+    added drive, started on object created: objct with primitives and objec with references
+
+commit 8a16fe4a5a98ca911c3cfd329e85b5a7917de3cb
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Fri Nov 13 18:04:43 2015 -0700
+
+    adding some sample classes. start working on user interface
+
+commit 1a215953db6c79b8fa17071333e00f3f1b958a26
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Fri Nov 13 16:18:45 2015 -0700
+
+    gonna mess with strings
+
+commit 34c1618f7eb6d089f4d17545ed855cff6f381e48
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Mon Nov 9 18:51:29 2015 -0700
+
+    TODO: networking, visualizer, see if arrays really work
+
+commit 9d6b1c51b2cfa494a988078f7954c1ebd30fdca0
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Sun Nov 8 22:31:00 2015 -0700
+
+    more stuff done to deserlizer. need to do refactorings
+
+commit 9a0d600a761893f682baa19a0f7401fe9700cf2b
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Sun Nov 8 01:58:32 2015 -0700
+
+    working on deserializer - parse ok, must confirm working.
+    changed serializer to not recurvely climb string hierarchy, instead drops in string like a primitive... probably not the way it should work
+
+commit 6293a7dafe0221ba160cdb7ae8f9a8a0fab10c65
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Fri Nov 6 22:37:59 2015 -0700
+
+    updatin .gitignore
+
+commit 6cec231c0ae6c620cc515bef41919794da33203c
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Fri Nov 6 22:32:03 2015 -0700
+
+    restructuring folders to accomodate two parts of this project
+
+commit 4192ab7a6a32c6ef5ed657e274d7e27ee3b6d91e
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Fri Nov 6 22:04:46 2015 -0700
+
+    serializer appears to be done. not done done but done
+
+commit c7613a5211d0d552fe7d4630fcebec9d307fa2fc
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Wed Nov 4 15:20:57 2015 -0700
+
+    have base serialization: fields and references with identityhashmap. TODO: arrays
+
+commit c8a9a611ffe57a5276abb7e69c4154609f168aad
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Wed Nov 4 14:35:59 2015 -0700
+
+    init, or almost
+
+commit b95954826f928bb0ec90bfcef77003351064af04
+Author: jeremy mah <jeremyw.mah@gmail.com>
+Date:   Wed Nov 4 12:22:05 2015 -0700
+
+    init
